@@ -7,9 +7,9 @@
     "node-telegram-bot-api": "^0.63.0"
   },
   "scripts": {
-    "start": "nodemon server.js"
+    "start": "server.js"
   },
-  "name": "images",
+  "name": "NGL Clone",
   "version": "1.0.0",
   "main": "server.js",
   "devDependencies": {
