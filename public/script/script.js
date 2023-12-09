@@ -7,15 +7,25 @@ let senLabel = document.querySelector('#senLabel')
 let send = document.querySelector('#send')
 let id = document.querySelector('#id')
 let suggestion= 0
+let diceContent
 dice.addEventListener('click',()=>{
-    fetch('../data/dice.json')
-    .then(response=>response.json()).then(data=>{
-        message.textContent = data[suggestion-1].text
-    }).catch(error=>{
-        console.error(error);
-    })
-    suggestion++
+        
+    if (suggestion < diceContent.length) {
+        message.textContent = diceContent[suggestion].text;
+        suggestion++
+    } else {
+    suggestion = 0;
+    }
 })
+
+fetch('../data/dice.json')
+.then(response=>response.json()).then(data=>{
+   diceContent = data
+
+}).catch(error=>{
+    console.error(error);
+})
+
 
 
 function getRandomGradient() {
