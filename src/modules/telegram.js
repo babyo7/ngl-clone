@@ -31,9 +31,13 @@ const urlRegex = /^(https?:\/\/)?([\da-z.-]+)\.([a-z.]{2,6})([/\w.-]*)*\/?$/;
   });
 
   bot.onText(/\/create/i, (msg) => {
-    const chatId = msg.chat.id;
-    bot.sendMessage(msg.chat.id,'Enter Your Username')
-     CreateAccount = true
+    if(user.IDExists(msg.chat.id)){
+      bot.sendMessage(msg.chat.id,`You Already have a Account /help: Need assistance or want to explore more commands? `)
+    }else{
+      const chatId = msg.chat.id;
+      bot.sendMessage(msg.chat.id,'Enter Your Username')
+      CreateAccount = true
+    }
   });
 
   bot.on('message',(msg)=>{
@@ -60,6 +64,8 @@ const urlRegex = /^(https?:\/\/)?([\da-z.-]+)\.([a-z.]{2,6})([/\w.-]*)*\/?$/;
         user.updateUserName(msg.chat.id,msg.text)
         bot.sendMessage(msg.chat.id,`Name Changed to ${user.IDExists(msg.chat.id).name}`)
         setName = false
+      }else{
+        bot.sendMessage(msg.chat.id,`Create Account To Continue /Create`)
       }
      }
 
@@ -88,6 +94,8 @@ const urlRegex = /^(https?:\/\/)?([\da-z.-]+)\.([a-z.]{2,6})([/\w.-]*)*\/?$/;
       const chatId = msg.chat.id;
       setName = true
       bot.sendMessage(msg.chat.id,'Enter your Name')
+    }else{
+      bot.sendMessage(msg.chat.id,`Create Account To Continue /Create`)
     }
   });
 
@@ -96,6 +104,8 @@ const urlRegex = /^(https?:\/\/)?([\da-z.-]+)\.([a-z.]{2,6})([/\w.-]*)*\/?$/;
       const chatId = msg.chat.id;
       SocialLink = true
       bot.sendMessage(msg.chat.id,'Enter any Social Media Link')
+    }else{
+      bot.sendMessage(msg.chat.id,`Create Account To Continue /Create`)
     }
   });
 
@@ -113,6 +123,8 @@ const urlRegex = /^(https?:\/\/)?([\da-z.-]+)\.([a-z.]{2,6})([/\w.-]*)*\/?$/;
       const chatId = msg.chat.id;
       bot.sendMessage(chatId,'Upload Profile Photo');
       photo = true
+    }else{
+      bot.sendMessage(msg.chat.id,`Create Account To Continue /Create`)
     }
   });
 
