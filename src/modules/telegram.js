@@ -45,7 +45,7 @@ module.exports = function () {
       bot.sendMessage(msg.chat.id,'try again')
      }else{
       bot.sendMessage(msg.chat.id,user.addUserData(userData))
-      bot.sendMessage(msg.chat.id,`Your Link - http://localhost:3000/${userData.username} \n\n Use /SetName to Set Name and /SetProfilePicture to set Profile Picture`)
+      bot.sendMessage(msg.chat.id,`Your Link - https://ngl-clone.onrender.com/${userData.username} \n\n Use /SetName to Set Name and /SetProfilePicture to set Profile Picture`)
       CreateAccount =false
      }
     
