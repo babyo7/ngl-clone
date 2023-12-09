@@ -10,17 +10,17 @@ router.use(bodyParser.urlencoded({ extended: true }))
 router.use(bodyParser.json())
 
 router.get('/',(req,res)=>{
-  res.render('index',{username:null,name:null,dp:null,id:null})
+  res.render('index',{username:null,name:null,dp:null,id:null,socialLink:null})
 })
 
 router.get('/:username', (req, res) => {
   const {username} = req.params
     try {
       if(!user.usernameExists(username)){
-        res.render('index',{username:null,name:null,dp:null,id:null})
+        res.render('index',{username:null,name:null,dp:null,id:null,socialLink:null})
       }else{
         let RenderUser = user.usernameExists(username)
-          res.render('index',{username:RenderUser.username,name:RenderUser.name,dp:RenderUser.dp,id:RenderUser.id})
+          res.render('index',{username:RenderUser.username,name:RenderUser.name,dp:RenderUser.dp,id:RenderUser.id,socialLink:RenderUser.socialLink})
         }
     } catch (error) {
       console.log('Error Rendering Page'); 

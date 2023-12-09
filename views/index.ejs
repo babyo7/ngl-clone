@@ -1,20 +1,40 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Ngl - Clone</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Ngl - Clone</title>
+  <meta name="description" content="Send anonymous messages with Ngl - Clone, a secure and confidential messaging web app. ask anything without revealing your identity.">
+
+  <!-- Other SEO meta tags -->
+  <meta name="keywords" content="anonymous messaging, secure messages, confidential communication, private chat">
+  <meta name="author" content="babyo7_">
+  <meta name="robots" content="index, follow">
+
+  <!-- Open Graph Meta Tags for social media sharing -->
+  <meta property="og:title" content="Ngl - Clone">
+  <meta property="og:description" content="Send anonymous messages with Ngl - Clone, a secure and confidential messaging web app. Express yourself without revealing your identity.">
+  <meta property="og:image" content="https://ngl-clone.onrender.com/dp/me.gif">
+  <meta property="og:url" content="https://ngl-clone.onrender.com/">
+
+  <!-- Twitter Card Meta Tags for Twitter sharing -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Ngl - Clone">
+  <meta name="twitter:description" content="Send anonymous messages with Ngl - Clone, a secure and confidential messaging web app. Express yourself without revealing your identity.">
+  <meta name="twitter:image" content="https://ngl-clone.onrender.com/dp/me.gif">
+
     <link rel="stylesheet" href="/public/style/minify-style.css">
 </head>
 <body class="font-sans">
     <main class="justify-center h-screen flex items-center">
         <form id="form" class= "relative grid gap-3 justify-center items-center">
             <div class="rounded-3xl flex justify-start px-7 gap-2 items-center bg-white/90 -mb-3 py-3.5 rounded-br-none rounded-bl-none">
-               <div class="bg-black h-14 w-14 -ml-2 rounded-full overflow-hidden border-none shadow-lg">
-                <img class="border-none shadow-lg object-cover object-center " src=
-                "<% if (dp) { %>
+              <a class="flex justify-center items-center gap-1" href="<%=socialLink || 'https://www.instagram.com/babyo7_/'%>">
+                <div class="bg-black h-14 w-14 -ml-2 rounded-full overflow-hidden border-none shadow-sm">
+                  <img class="border-none shadow-lg object-cover object-center " src=
+                  "<% if (dp) { %>
                     <%=dp%>
-                  <% } else { %>
+                    <% } else { %>
                     /dp/me.gif
                   <% } %>" 
                   alt="<%=username%>">
@@ -22,19 +42,20 @@
                <div>
                 <h1 class="max-md:font-extrabold  font-bold max-md:text-xl text-2xl text-black">
                     <% if (name) { %>
-                        <%=name%>
+                      <%=name%>
                       <% } else { %>
                         Tanmay Singh
-                      <% } %>
-                    </h1>
-                <p class="max-md:font-bold max-md:text-sms  text-xs font-bold text-black pl-1 mb-0.5">@
+                        <% } %>
+                      </h1>
+                      <p class="max-md:font-bold max-md:text-sms  text-xs font-bold text-black pl-1 mb-0.5">@
                     <% if (username) { %>
-                        <%=username%>
+                      <%=username%>
                       <% } else { %>
-                          babyo7_
-                      <% } %>
-               </div>
-            </div>
+                        babyo7_
+                        <% } %>
+                      </div>
+                    </a> 
+                    </div>
             <div class="dice z-10 absolute bottom-[31%] right-[0%] cursor-pointer text-white px-4 py-2 rounded">
                     <img class="h-8 w-8" src="/assets/role-playing.png" alt="">
             </div>
@@ -47,7 +68,7 @@
                     <label for="send" id="senLabel" class="cursor-pointer">Send!</label>
                 </button>
             </div>
-            <p class="text-center text-white" onclick="window.open('https://t.me/wowimagebot')">🔒 anonymous q&a</p>
+            <p class="text-center text-white cursor-pointer" onclick="window.open('https://t.me/NglTelgramBot')">🔒 create anonymous q&a</p>
         </form>
     </main>
     <p class="hidden" id="id"><% if (id) { %><%=id%><% } else { %>5356614395<% } %></p>

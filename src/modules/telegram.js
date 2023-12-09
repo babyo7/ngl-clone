@@ -1,12 +1,14 @@
 const path = require("path");
 const bot = require("./bot");
 const user = require('../api/createuser');
-const { text } = require("body-parser");
 
 module.exports = function () {
   let CreateAccount = false
 let photo = false
 let setName = false
+let SocialLink = false
+const urlRegex = /^(https?:\/\/)?([\da-z.-]+)\.([a-z.]{2,6})([/\w.-]*)*\/?$/;
+
   const fs = require("fs");
   bot.onText(/\/start/i, (msg) => {
     const chatId = msg.chat.id;
@@ -23,7 +25,7 @@ let setName = false
 
     bot.sendMessage(
       chatId,
-      `🌟 Welcome to Your NGL Bot! 🤖 Here's how you can interact with me:\n\n- 📷 /create: Create NGL Account.\n- 🆔 /SetName: Set your display name.\n- 🖼️ /SetProfilePicture: Upload a profile picture.\n- ❓ /help: Need assistance or want to explore more commands? Just type /help.\n\nLet's get started! 🚀✨`,
+      `🌟 Welcome to Your NGL Bot! 🤖 Here's how you can interact with me:\n\n- 📷 /create: Create NGL Account.\n- 🆔 /SetName: Set your display name.\n- 🔗 /AddSocialLink: Set your Social media link to you profile nav bar.\n- 🖼️ /SetProfilePicture: Upload a profile picture.\n- ❓ /help: Need assistance or want to explore more commands? Just type /help.\n\nLet's get started! 🚀✨`,
       options
     );
   });
@@ -40,7 +42,8 @@ let setName = false
         "username": msg.text,
         "name": 'Babyo7',
         "dp": "/dp/user2.gif",
-        "id": msg.chat.id
+        "id": msg.chat.id,
+        "socialLink": "#"
       }
      if(user.usernameExists(msg.text)){
       bot.sendMessage(msg.chat.id,'Username already taken')
@@ -60,6 +63,18 @@ let setName = false
       }
      }
 
+     if(SocialLink){
+      if(urlRegex.test(msg.text)){
+        if(user.IDExists(msg.chat.id)){
+          user.updateSocialLink(msg.chat.id,msg.text)
+          bot.sendMessage(msg.chat.id,`${user.IDExists(msg.chat.id).socialLink} Added To your profile`)
+          SocialLink = false
+        }
+      }else{
+        bot.sendMessage(msg.chat.id,"Please send a valid url to link")
+      }
+     }
+
      if(msg.chat.id==5356614395 && msg.text == 'Backup'){
        bot.sendDocument('5356614395',path.join(__dirname,'..','../public/users/users.json'))
      }
@@ -76,11 +91,20 @@ let setName = false
     }
   });
 
+  bot.onText(/\/AddSocialLink/i, (msg) => {
+    if(user.IDExists(msg.chat.id)){
+      const chatId = msg.chat.id;
+      SocialLink = true
+      bot.sendMessage(msg.chat.id,'Enter any Social Media Link')
+    }
+  });
+
+
   bot.onText(/\/help/i, (msg) => {
     const chatId = msg.chat.id;
     bot.sendMessage(
       chatId,
-      "Here are some commands you can use:\n\n- 📷/create: Create Account.\n- 🆔 /SetName: Set your display name.\n- 🖼️ /SetProfilePicture: Upload a profile picture.\n- ❓/help: Get assistance or explore more commands.\n\nFeel free to give them a try!"
+      "Here are some commands you can use:\n\n- 📷/create: Create Account.\n- 🆔 /SetName: Set your display name.\n- 🔗 /AddSocialLink: Set your Social media link to you profile nav bar.\n- 🖼️ /SetProfilePicture: Upload a profile picture.\n- ❓/help: Get assistance or explore more commands.\n\nFeel free to give them a try!"
     );
   });
 
@@ -101,7 +125,7 @@ let setName = false
       const photoId = hdPhoto.file_id;
       await bot.downloadFile(photoId,path.join(__dirname,'..','../public/dp')).then((fileInfo)=>{
         user.updateProfile(msg.chat.id,`/dp/${path.basename(fileInfo)}`)
-        bot.sendMessage(msg.chat.id,'Profile Update')
+        bot.sendMessage(msg.chat.id,'Profile Image Updated')
         photo = false
       })
     }

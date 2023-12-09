@@ -75,6 +75,25 @@ function UserHandler(fileName) {
       console.error('Error updating user name:', error.message);
     }
   };
+
+  
+  this.updateSocialLink= function (userId, NewSocialLink) {
+    try {
+      const existingData = this.readData() || [];
+      const user = existingData.find(user => user.id === userId);
+
+      if (!user) {
+        return 'User not found.';
+      }
+      // Update user name
+      user.socialLink = NewSocialLink;
+
+      fs.writeFileSync(this.filePath, JSON.stringify(existingData, null, 2), 'utf8');
+      return `User name updated for ID: ${userId}`;
+    } catch (error) {
+      console.error('Error updating user name:', error.message);
+    }
+  };
 }
 
 const user = new UserHandler('users.json')
