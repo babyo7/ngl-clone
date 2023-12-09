@@ -3,7 +3,6 @@ const router = require('./src/api/api');
 const bodyParser = require('body-parser');
 const bot = require('./src/modules/telegram')
 const Port = process.env.PORT || 3000
-bot()
 
 const app = express();
 const port = 3000;
@@ -13,6 +12,7 @@ router.use(bodyParser.json())
 
 app.set('view engine','ejs')
 
+bot()
 
 app.use('/',router)
 app.use('/:username',router)
