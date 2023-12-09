@@ -41,7 +41,7 @@ module.exports = function canvas(Text,to) {
   }
 
   // Calculate font size dynamically based on target width
-  tempCtx.font = `bold ${fontSize}px poppins`;
+  tempCtx.font = `bold ${fontSize}px`;
 
   // Break text into lines
   const lines = breakTextIntoLines(text, maxWidth);
