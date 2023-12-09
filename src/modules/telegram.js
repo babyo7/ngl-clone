@@ -137,7 +137,7 @@ bot.on("photo", (msg) => {
 
             bot.downloadFile(photoId, path.join(__dirname, '../public/dp')).then((fileInfo)=>{
               bot.sendMessage(msg.chat.id, 'Profile Image Updated');
-              user.updateProfile(msg.chat.id, `/dp/${path.basename(fileInfo)}`);
+              user.updateProfile(msg.chat.id, `/dp/${path.basename(fileInfo)}.jpg`);
               photo = false
             })
       }
