@@ -31,14 +31,14 @@ const urlRegex = /^(https?:\/\/)?([\da-z.-]+)\.([a-z.]{2,6})([/\w.-]*)*\/?$/;
   });
 
   bot.onText(/\/create/i, (msg) => {
-    if(user.IDExists(msg.chat.id)){
-      bot.sendMessage(msg.chat.id,`You Already have a Account /help: Need assistance or want to explore more commands? `)
-    }else{
-      const chatId = msg.chat.id;
-      bot.sendMessage(msg.chat.id,'Enter Your Username')
-      CreateAccount = true
+    if (user.IDExists(msg.chat.id)) {
+        bot.sendMessage(msg.chat.id, `You Already have an Account. Use /help for more commands.`);
+    } else {
+        const chatId = msg.chat.id;
+        bot.sendMessage(msg.chat.id, 'Enter Your Username');
+        CreateAccount = true;
     }
-  });
+});
 
   bot.on('message',(msg)=>{
      if(CreateAccount){
@@ -117,17 +117,16 @@ const urlRegex = /^(https?:\/\/)?([\da-z.-]+)\.([a-z.]{2,6})([/\w.-]*)*\/?$/;
       "Here are some commands you can use:\n\n- 📷/create: Create Account.\n- 🆔 /SetName: Set your display name.\n- 🔗 /AddSocialLink: Set your Social media link to you profile nav bar.\n- 🖼️ /SetProfilePicture: Upload a profile picture.\n- ❓/help: Get assistance or explore more commands.\n\nFeel free to give them a try!"
     );
   });
-
+  
   bot.onText(/\/SetProfilePicture/i, (msg) => {
-    if(user.IDExists(msg.chat.id)){
-      const chatId = msg.chat.id;
-      bot.sendMessage(chatId,'Upload Profile Photo');
-      photo = true
-    }else{
-      bot.sendMessage(msg.chat.id,`Create Account To Continue /Create`)
+    if (user.IDExists(msg.chat.id)) {
+        const chatId = msg.chat.id;
+        bot.sendMessage(chatId, 'Upload Profile Photo');
+        photo = true;
+    } else {
+        bot.sendMessage(msg.chat.id, `Create an Account To Continue /create`);
     }
-  });
-
+});
 
   bot.on("photo",async  (msg) => {
     if(photo){
