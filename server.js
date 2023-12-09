@@ -12,7 +12,7 @@ router.use(bodyParser.json())
 
 app.set('view engine','ejs')
 
-bot()
+
 
 app.use('/',router)
 app.use('/:username',router)
