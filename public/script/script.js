@@ -44,7 +44,7 @@ function getRandomGradient() {
       event.preventDefault();
       let fromData = {
         message:message.value,
-        id:id.value
+        id:id.textContent
       }
     fetch('/message',{
         method: 'POST',
