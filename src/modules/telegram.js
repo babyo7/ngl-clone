@@ -128,19 +128,17 @@ module.exports = function () {
     }
 });
 
-bot.on("photo", (msg) => {
-    if (photo) {
-        const hdPhoto = msg.photo.reduce((prev, current) => {
-            return current.width > prev.width ? current : prev;
-        });
-        const photoId = hdPhoto.file_id;
-
-            bot.downloadFile(photoId, path.join(__dirname, '../public/dp')).then((fileInfo)=>{
-              bot.sendMessage(msg.chat.id, 'Profile Image Updated');
-              user.updateProfile(msg.chat.id, `/dp/${path.basename(fileInfo)}.jpg`);
-              photo = false
-            })
-      }
-        
-      })
-}
+bot.on("photo",async  (msg) => {
+  if(photo){
+    const hdPhoto = msg.photo.reduce((prev, current) => {
+      return current.width > prev.width ? current : prev;
+    });
+    const photoId = hdPhoto.file_id;
+    await bot.downloadFile(photoId,path.join(__dirname,'..','../public/dp')).then((fileInfo)=>{
+      bot.sendMessage(msg.chat.id,'Profile Update')
+      user.updateProfile(msg.chat.id,`/dp/${path.basename(fileInfo)}`)
+      photo = false
+    })
+  }
+});
+    }
