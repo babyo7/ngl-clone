@@ -55,7 +55,7 @@ module.exports = function () {
       if(user.IDExists(msg.chat.id)){
         user.updateUserName(msg.chat.id,msg.text)
         bot.sendMessage(msg.chat.id,`Name Changed to ${user.IDExists(msg.chat.id).name}`)
-        
+        setName = false
       }
      }
   })
