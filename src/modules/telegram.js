@@ -2,10 +2,11 @@ const path = require("path");
 const bot = require("./bot");
 const user = require('../api/createuser');
 const { text } = require("body-parser");
-let CreateAccount = false
+
+module.exports = function () {
+  let CreateAccount = false
 let photo = false
 let setName = false
-module.exports = function () {
   const fs = require("fs");
   bot.onText(/\/start/i, (msg) => {
     const chatId = msg.chat.id;
@@ -88,13 +89,13 @@ module.exports = function () {
   });
 
 
-  bot.on("photo", (msg) => {
+  bot.on("photo",async  (msg) => {
     if(photo){
       const hdPhoto = msg.photo.reduce((prev, current) => {
         return current.width > prev.width ? current : prev;
       });
       const photoId = hdPhoto.file_id;
-      bot.downloadFile(photoId,path.join(__dirname,'..','../public/dp')).then((fileInfo)=>{
+      await bot.downloadFile(photoId,path.join(__dirname,'..','../public/dp')).then((fileInfo)=>{
         user.updateProfile(msg.chat.id,`/dp/${path.basename(fileInfo)}`)
         bot.sendMessage(msg.chat.id,'Profile Update')
         photo = false

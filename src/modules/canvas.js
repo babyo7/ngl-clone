@@ -9,7 +9,7 @@ module.exports = function canvas(Text,to) {
   const targetWidth = 1080; // 4K width
   const paddingX = 20; // Padding on X axis
   const paddingY = 33; // Padding on Y axis
-  const maxWidth = (targetWidth - 2 * paddingX) * 0.8; // 80% of the available width after padding
+  const maxWidth = (targetWidth - 2 * paddingX) * 1; // 80% of the available width after padding
   const lineSpacing = 0.3 * fontSize; // Line spacing in pixels
 
   // Create a temporary canvas with minimal height
@@ -41,7 +41,7 @@ module.exports = function canvas(Text,to) {
   }
 
   // Calculate font size dynamically based on target width
-  tempCtx.font = `bold ${fontSize}px`;
+  tempCtx.font = `bold ${fontSize}px poppins`;
 
   // Break text into lines
   const lines = breakTextIntoLines(text, maxWidth);
