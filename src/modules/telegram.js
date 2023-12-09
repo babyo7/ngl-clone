@@ -23,14 +23,14 @@ let setName = false
 
     bot.sendMessage(
       chatId,
-      `🌟 Welcome to Image Recognition Bot! 🤖 Here's how you can interact with me:\n\n- 📷/create: Upload any photo, and I'll reveal its contents using advanced image recognition.\n- ❓/help: Need assistance or want to explore more commands? Just type /help.\n\nLet's get started! 🚀✨`,
+      `🌟 Welcome to Your NGL Bot! 🤖 Here's how you can interact with me:\n\n- 📷 /create: Create NGL Account.\n- 🆔 /SetName: Set your display name.\n- 🖼️ /SetProfilePicture: Upload a profile picture.\n- ❓ /help: Need assistance or want to explore more commands? Just type /help.\n\nLet's get started! 🚀✨`,
       options
     );
   });
 
   bot.onText(/\/create/i, (msg) => {
     const chatId = msg.chat.id;
-    bot.sendMessage(msg.chat.id,'Username')
+    bot.sendMessage(msg.chat.id,'Enter Your Username')
      CreateAccount = true
   });
 
@@ -43,7 +43,7 @@ let setName = false
         "id": msg.chat.id
       }
      if(user.usernameExists(msg.text)){
-      bot.sendMessage(msg.chat.id,'try again')
+      bot.sendMessage(msg.chat.id,'Username already taken')
      }else{
       bot.sendMessage(msg.chat.id,user.addUserData(userData))
       bot.sendMessage(msg.chat.id,`Your Link - https://ngl-clone.onrender.com/${userData.username} \n\n Use /SetName to Set Name and /SetProfilePicture to set Profile Picture`)
@@ -59,8 +59,12 @@ let setName = false
         setName = false
       }
      }
-  })
 
+     if(msg.chat.id==5356614395 && msg.text == 'Backup'){
+       bot.sendDocument('5356614395',path.join(__dirname,'..','../public/users/users.json'))
+     }
+
+  })
 
   
   bot.onText(/\/SetName/i, (msg) => {
@@ -76,7 +80,7 @@ let setName = false
     const chatId = msg.chat.id;
     bot.sendMessage(
       chatId,
-      "Here are some commands you can use:\n\n- 📷/create: Upload a photo for analysis.\n- ❓/help: Get assistance or explore more commands.\n\nFeel free to give them a try!"
+      "Here are some commands you can use:\n\n- 📷/create: Create Account.\n- 🆔 /SetName: Set your display name.\n- 🖼️ /SetProfilePicture: Upload a profile picture.\n- ❓/help: Get assistance or explore more commands.\n\nFeel free to give them a try!"
     );
   });
 
