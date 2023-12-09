@@ -1,12 +1,12 @@
 const path = require("path");
 const bot = require("./bot");
 const user = require('../api/createuser');
-
-module.exports = function () {
-  let CreateAccount = false
+let CreateAccount = false
 let photo = false
 let setName = false
 let SocialLink = false
+module.exports = function () {
+
 const urlRegex = /^(https?:\/\/)?([\da-z.-]+)\.([a-z.]{2,6})([/\w.-]*)*\/?$/;
 
   const fs = require("fs");
