@@ -7,7 +7,7 @@ let setName = false
 let SocialLink = false
 module.exports = function () {
 
-const urlRegex = /^(https?:\/\/)?([\da-z.-]+)\.([a-z.]{2,6})([/\w.-]*)*\/?$/;
+  const urlRegex = /^https:\/\/([\da-z.-]+)\.([a-z.]{2,6})([/\w.-]*)*\/?$/;
 
   const fs = require("fs");
   bot.onText(/\/start/i, (msg) => {
@@ -127,24 +127,20 @@ const urlRegex = /^(https?:\/\/)?([\da-z.-]+)\.([a-z.]{2,6})([/\w.-]*)*\/?$/;
         bot.sendMessage(msg.chat.id, `Create an Account To Continue /create`);
     }
 });
-bot.on("photo", async (msg) => {
+
+bot.on("photo", (msg) => {
     if (photo) {
         const hdPhoto = msg.photo.reduce((prev, current) => {
             return current.width > prev.width ? current : prev;
         });
         const photoId = hdPhoto.file_id;
 
-        try {
-            const fileInfo = await bot.downloadFile(photoId, path.join(__dirname, '../public/dp'));
-            user.updateProfile(msg.chat.id, `/dp/${path.basename(fileInfo)}`);
-            await bot.sendMessage(msg.chat.id, 'Profile Image Updated');
-        } catch (error) {
-            console.error('Error updating profile image:', error);
-            await bot.sendMessage(msg.chat.id, 'There was an error updating your profile image.');
-        } finally {
-            photo = false;
-        }
-    }
-});
-
-};
+            bot.downloadFile(photoId, path.join(__dirname, '../public/dp')).then((fileInfo)=>{
+              user.updateProfile(msg.chat.id, `/dp/${path.basename(fileInfo)}`);
+              bot.sendMessage(msg.chat.id, 'Profile Image Updated');
+              photo = false
+            })
+      }
+        
+      })
+}
