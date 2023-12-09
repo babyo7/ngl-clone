@@ -66,7 +66,8 @@ function getRandomGradient() {
        loader.hide()
     }).catch(error=>{
         console.log(error);
-         loader.hide()
+        alert("Api endpoint is down")
+        location.reload()
     })
   })
 
