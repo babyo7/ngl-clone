@@ -2,7 +2,7 @@ const express = require('express');
 const router = require('./src/api/api');
 const bodyParser = require('body-parser');
 const bot = require('./src/modules/telegram')
-
+const Port = process.env.PORT || 3000
 bot()
 
 const app = express();
@@ -18,6 +18,6 @@ app.use('/',router)
 app.use('/:username',router)
 app.use('/message', router);
 
-app.listen(port, () => {
-  console.log(`Server is running on port ${port}`);
+app.listen(Port, () => {
+  console.log(`Server is running on port ${Port}`);
 });
