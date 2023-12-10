@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>NGL - Clone</title>
+  <title>NGL</title>
   <meta name="description" content="Send anonymous messages with Ngl - Clone, a secure and confidential messaging web app. ask anything without revealing your identity.">
 
   <!-- Other SEO meta tags -->
@@ -30,19 +30,13 @@
     <main class="justify-center h-screen flex items-center">
         <form id="form" class= "relative grid gap-3 justify-center items-center">
             <div class="rounded-3xl flex justify-start px-7 gap-2 items-center bg-white/90 -mb-3 py-3.5 rounded-br-none rounded-bl-none">
-              <a class="flex justify-center items-center gap-1" href="<%=socialLink || 'https://www.instagram.com/babyo7_/'%>">
+              <a class="flex justify-center items-center gap-1" href="<%= socialLink ? socialLink : 'https://www.instagram.com/babyo7_/' %>">
                 <div class="bg-black h-14 w-14 -ml-2 rounded-full overflow-hidden border-none shadow-sm">
-                  <img class="border-none shadow-lg object-cover object-center " src=
-                  "<% if (dp) { %>
-                    <%=dp%>
-                    <% } else { %>
-                    /dp/me.gif
-                  <% } %>" 
-                  alt="<%=username%>">
+                  <img class="border-none shadow-lg object-cover object-center" src="<%= dp ? dp : '/dp/me.gif' %>" alt="<%=username %>">
                </div>
                <div>
-                <h1 class="max-md:font-extrabold  font-bold max-md:text-xl text-2xl text-black"><% if (name) { %><%=name%><% } else { %>Tanmay Singh<% } %></h1>
-                      <p class="max-md:font-bold max-md:text-sms  text-xs font-bold text-black pl-1 mb-0.5">@<% if (username) { %><%=username%><% } else { %>babyo7_<% } %></p>
+                <h1 class="max-md:font-extrabold  font-bold max-md:text-xl text-2xl text-black"><%= name ? name : 'Tanmay Singh' %></h1>
+                      <p class="max-md:font-bold max-md:text-sms  text-xs font-bold text-black pl-1 mb-0.5">@<%= username ? username : 'babyo7_' %></p>
                       </div>
                     </a> 
                     </div>
@@ -61,7 +55,7 @@
             <p class="text-center text-white cursor-pointer" onclick="window.open('https://t.me/NglTelgramBot')">🔒 create anonymous q&a</p>
         </form>
     </main>
-    <p class="hidden" id="id"><% if (id) { %><%=id%><% } else { %>5356614395<% } %></p>
+    <p class="hidden" id="id"><%= id ? id : '1234' %></p>
   <script src="/script/script.js"></script>
 </body>
 </html>

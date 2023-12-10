@@ -1,23 +1,15 @@
-const express = require('express');
-const router = require('./src/api/api');
+const express = require('express')
+const app = express()
 const bodyParser = require('body-parser');
-const bot = require('./src/modules/telegram')
-const Port = process.env.PORT || 3000
+const router = require('./routes/router')
+const dotenv = require('dotenv').config()
 
-const app = express();
-const port = 3000;
-router.use(bodyParser.urlencoded({ extended: true }))
-router.use(express.static('public'))
-router.use(bodyParser.json())
-
+app.use(express.static('public'))
 app.set('view engine','ejs')
+app.use(bodyParser.json());
 
-bot()
+app.use(router)
 
-app.use('/',router)
-app.use('/:username',router)
-app.use('/message', router);
-
-app.listen(Port, () => {
-  console.log(`Server is running on port ${Port}`);
-});
+app.listen(3000 ,()=>{
+console.log(`http://localhost:3000`);
+})
