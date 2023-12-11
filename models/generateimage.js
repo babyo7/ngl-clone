@@ -6,7 +6,7 @@ const fs = require("fs").promises;
 const bot = new Bot(process.env.BOT);
 
 async function SendMessage(id, text) {
-  const browser = await puppeteer.launch({ headless: true ,args: ['--no-sandbox']});
+  const browser = await puppeteer.launch({ headless: "new" ,args: ['--no-sandbox']});
   const page = await browser.newPage();
 
   // Set viewport size for HD image
