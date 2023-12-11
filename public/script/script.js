@@ -1,4 +1,4 @@
-"user strict";
+"use strict";
 
 let message = document.querySelector("#message");
 let form = document.querySelector("#form");
@@ -64,18 +64,19 @@ form.addEventListener("submit", async (event) => {
     },
     body: JSON.stringify(fromData),
   })
-    .then((response) => {
+    .then(async (response) => {
         if(!response.ok){
-            throw new Error(response.status)
+          this.response = await response.json()
+            throw new Error(this.response.error)
         }
        return response.json()
     })
-    .then((message) => {
+    .then(() => {
       loader.hide();
     })
     .catch((error) => {
       console.log(error);
-      alert("Try Again Later");
+      alert(error.message);
       location.reload()
     });
 });

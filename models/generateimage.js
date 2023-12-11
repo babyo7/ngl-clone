@@ -1,0 +1,64 @@
+const puppeteer = require('puppeteer');
+const { Bot, InputFile } = require("grammy");
+const { createReadStream } = require('fs');
+const dotenv = require('dotenv').config()
+const fs = require('fs').promises;
+const bot = new Bot(process.env.BOT);
+
+
+async function SendMessage(id,text){
+  const browser = await puppeteer.launch({ headless: 'new' });
+  const page = await browser.newPage();
+
+  // Set viewport size for HD image
+  await page.setViewport({ width: 720, height: 300});
+
+  // Set HTML content with text and emojis
+  await page.setContent(`
+    <html>
+      <head>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@600&display=swap">
+        <style>
+          body {
+            background: linear-gradient(to bottom right, rgba(255, 0, 0, 0.5), rgba(0, 0, 255, 0.5));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0;
+            padding: 1.7rem;
+          }
+          div {
+            font-size: 7vw;
+            font-family: 'Poppins', sans-serif;
+            font-weight: 600;
+            text-align: center;
+            word-wrap: break-word;
+            box-sizing: border-box;
+            color: white;
+          }
+        </style>
+      </head>
+      <body>
+        <div>${text}</div>
+      </body>
+    </html>
+  `);
+
+  // Capture a screenshot
+  const Image =  await page.screenshot({fullPage: true });
+  await browser.close();
+  try {
+    
+    const temp = await fs.writeFile('temp.png',Image)
+    await bot.api.sendPhoto(id,new InputFile('temp.png'),{
+      caption:text,
+    })
+    await fs.unlink('temp.png')
+    return true
+  } catch (error) {
+    console.log(error);
+    return false
+  }
+}
+
+module.exports = SendMessage
