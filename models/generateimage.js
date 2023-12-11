@@ -1,17 +1,16 @@
-const puppeteer = require('puppeteer');
+const puppeteer = require("puppeteer");
 const { Bot, InputFile } = require("grammy");
-const { createReadStream } = require('fs');
-const dotenv = require('dotenv').config()
-const fs = require('fs').promises;
+const fetch = require("./fetch");
+const dotenv = require("dotenv").config();
+const fs = require("fs").promises;
 const bot = new Bot(process.env.BOT);
 
-
-async function SendMessage(id,text){
-  const browser = await puppeteer.launch({ headless: 'new' });
+async function SendMessage(id, text) {
+  const browser = await puppeteer.launch({ headless: "new" });
   const page = await browser.newPage();
 
   // Set viewport size for HD image
-  await page.setViewport({ width: 720, height: 300});
+  await page.setViewport({ width: 720, height: 300 });
 
   // Set HTML content with text and emojis
   await page.setContent(`
@@ -45,20 +44,34 @@ async function SendMessage(id,text){
   `);
 
   // Capture a screenshot
-  const Image =  await page.screenshot({fullPage: true });
+  const Image = await page.screenshot({ fullPage: true });
   await browser.close();
   try {
-    
-    const temp = await fs.writeFile('temp.png',Image)
-    await bot.api.sendPhoto(id,new InputFile('temp.png'),{
-      caption:text,
-    })
-    await fs.unlink('temp.png')
-    return true
+    const temp = await fs.writeFile("temp.png", Image);
+    await bot.api.sendPhoto(id, new InputFile("temp.png"), {
+      caption: text,
+    });
+    await fs.unlink("temp.png");
+    return true;
   } catch (error) {
     console.log(error);
-    return false
+    return false;
   }
 }
 
-module.exports = SendMessage
+bot.command("start", (ctx) => {
+  const id = ctx.chat.id;
+  console.log(id);
+  fetch().then((data) => {
+    let userMap = new Map(data.map((items) => [items.id, items.username]));
+    if (userMap.has(id.toString())) {
+      ctx.reply(`Welcome ${userMap.get(id.toString())}`);
+    } else {
+      ctx.reply(
+        `You don't have an active account contact @NGLCreateAccountbot`
+      );
+    }
+  });
+});
+bot.start();
+module.exports = SendMessage;

@@ -65,11 +65,11 @@ form.addEventListener("submit", async (event) => {
     body: JSON.stringify(fromData),
   })
     .then(async (response) => {
-        if(!response.ok){
-          this.response = await response.json()
-            throw new Error(this.response.error)
-        }
-       return response.json()
+      if (!response.ok) {
+        this.response = await response.json();
+        throw new Error(this.response.error);
+      }
+      return response.json();
     })
     .then(() => {
       loader.hide();
@@ -77,7 +77,7 @@ form.addEventListener("submit", async (event) => {
     .catch((error) => {
       console.log(error);
       alert(error.message);
-      location.reload()
+      location.reload();
     });
 });
 
