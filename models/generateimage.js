@@ -5,12 +5,28 @@ const dotenv = require("dotenv").config();
 const fs = require("fs").promises;
 const bot = new Bot(process.env.BOT);
 
+let h = null
+const gradients = [
+  "linear-gradient(to bottom right, rgba(255, 255, 0, 0.5), rgba(255, 165, 0, 0.5), rgba(255, 0, 0, 0.5));",
+  "linear-gradient(to bottom right, rgba(75, 0, 130, 0.5), rgba(0, 0, 255, 0.5), rgba(128, 0, 128, 0.5));",
+  "linear-gradient(to bottom right, rgba(255, 0, 0, 0.5), rgba(255, 182, 193, 0.5), rgba(255, 0, 0, 0.5));",
+  "linear-gradient(to bottom right, rgba(255, 191, 0, 0.5), rgba(255, 255, 0, 0.5), rgba(255, 69, 0, 0.5));",
+  "linear-gradient(to bottom right, rgba(0, 0, 255, 0.5), rgba(173, 216, 230, 0.5), rgba(0, 255, 255, 0.5));",
+  "linear-gradient(to bottom right, rgba(0, 255, 0, 0.5), rgba(0, 128, 0, 0.5), rgba(0, 128, 128, 0.5));",
+];
+
 async function SendMessage(id, text) {
+  console.log(text.length);
+  if(text.length>70){
+   h=0
+  }else{
+    h=300
+  }
   const browser = await puppeteer.launch({ headless: "new" ,args: ['--no-sandbox']});
   const page = await browser.newPage();
 
-  // Set viewport size for HD image
-  await page.setViewport({ width: 720, height: 300 });
+  const randomGradient = gradients[Math.floor(Math.random() * gradients.length)];
+  await page.setViewport({ width: 720, height: h }); // Adjust width and height as needed
 
   // Set HTML content with text and emojis
   await page.setContent(`
@@ -19,11 +35,12 @@ async function SendMessage(id, text) {
         <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@600&display=swap">
         <style>
           body {
-            background: linear-gradient(to bottom right, rgba(255, 0, 0, 0.5), rgba(0, 0, 255, 0.5));
+            background: ${randomGradient};
             display: flex;
             align-items: center;
             justify-content: center;
             margin: 0;
+            padding:0;
             padding: 1.7rem;
           }
           div {
@@ -44,7 +61,7 @@ async function SendMessage(id, text) {
   `);
 
   // Capture a screenshot
-  const Image = await page.screenshot({ fullPage: true });
+  const Image = await page.screenshot( {fullPage: true });
   await browser.close();
   try {
     const temp = await fs.writeFile("temp.png", Image);
@@ -59,7 +76,11 @@ async function SendMessage(id, text) {
   }
 }
 
-bot.command("start", (ctx) => {
+bot.command("start",async (ctx) => {
+  await bot.api.setMyCommands([
+    { command: "start", description: "Start bot " },
+    { command: "help", description: "help" },
+  ])
   const id = ctx.chat.id;
   console.log(id);
   fetch().then((data) => {
@@ -73,5 +94,16 @@ bot.command("start", (ctx) => {
     }
   });
 });
+
+bot.command('help',async (ctx)=>{
+  await bot.api.sendMessage(
+    ctx.chat.id,
+    '<b>Contact</b> <i>@NGLCreateAccountbot</i> For help.',
+    { parse_mode: "HTML" }
+  );
+  
+})
 bot.start();
+
+
 module.exports = SendMessage;
