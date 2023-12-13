@@ -65,9 +65,10 @@ async function SendMessage(id, text) {
     const temp = await fs.writeFile("temp.png", Image);
     await bot.api.sendPhoto(id, new InputFile("temp.png"), {
       caption: text,
-    });
-    await fs.unlink("temp.png");
-    return true;
+    }).then(async()=>{
+      await fs.unlink("temp.png");
+      return true;
+    })
   } catch (error) {
     console.log(error);
     return false;
