@@ -43,7 +43,7 @@ async function SendMessage(id, text) {
           }
           div {
             font-size: 7vw;
-            font-family: 'Noto Color Emoji', 'Segoe UI Emoji', 'Twemoji', 'Apple Color Emoji', 'Poppins', sans-serif;
+            font-family: 'Noto Color Emoji', sans-serif;
             font-weight: 600;
             text-align: center;
             word-wrap: break-word;
