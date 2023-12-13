@@ -30,6 +30,7 @@ async function SendMessage(id, text) {
   <html lang="en">
     <head>
       <meta charset="UTF-8" />
+      <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/emoji-datasource@15.0.1/+esm">
         <style>
           body {
             background: ${randomGradient};
@@ -42,7 +43,7 @@ async function SendMessage(id, text) {
           }
           div {
             font-size: 7vw;
-            font-family: 'Segoe UI Emoji', 'Twemoji', 'Apple Color Emoji', 'Poppins', sans-serif;
+            font-family: 'Noto Color Emoji', 'Segoe UI Emoji', 'Twemoji', 'Apple Color Emoji', 'Poppins', sans-serif;
             font-weight: 600;
             text-align: center;
             word-wrap: break-word;
