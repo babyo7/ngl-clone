@@ -67,8 +67,8 @@ async function SendMessage(id, text) {
       caption: text,
     }).then(async()=>{
       await fs.unlink("temp.png");
-      return true;
     })
+    return true
   } catch (error) {
     console.log(error);
     return false;
