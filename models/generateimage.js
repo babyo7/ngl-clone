@@ -50,7 +50,7 @@ async function SendMessage(id, text) {
             box-sizing: border-box;
             color: white;
           }
-        </styl>
+        </style>
       </head>
       <body>
         <div>${text}</div>
