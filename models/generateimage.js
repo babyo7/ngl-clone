@@ -3,7 +3,6 @@ const { Bot, InputFile } = require("grammy");
 const fetch = require("./fetch");
 const dotenv = require("dotenv").config();
 const fs = require("fs").promises;
-const path = require("path");  // Added for path module
 const bot = new Bot(process.env.BOT);
 
 let h = null
@@ -15,38 +14,27 @@ const gradients = [
 
 async function SendMessage(id, text) {
   console.log(text.length);
-  if(text.length > 70){
-    h = 0;
-  } else {
-    h = 300;
+  if(text.length>70){
+   h=0
+  }else{
+    h=300
   }
-
-  const browser = await puppeteer.launch({ headless: "new", args: ['--no-sandbox', '--disable-setuid-sandbox'] });
+  const browser = await puppeteer.launch({ headless: "new" ,args: ['--no-sandbox','--disable-setuid-sandbox']});
   const page = await browser.newPage();
 
   const randomGradient = gradients[Math.floor(Math.random() * gradients.length)];
-  await page.setViewport({ width: 720, height: h });
+  await page.setViewport({ width: 720, height: h }); // Adjust width and height as needed
 
-  // Load the Noto Color Emoji font from a local file
-  const fontPath = path.join(__dirname, 'NotoColorEmoji.ttf');  // Adjust the path as needed
-  await page.evaluate((fontPath) => {
-    const style = document.createElement('style');
-    style.textContent = `
-      @font-face {
-        font-family: 'Noto Color Emoji';
-        src: url('${fontPath}') format('truetype');
-        font-weight: normal;
-        font-style: normal;
-      }
-    `;
-    document.head.appendChild(style);
-  }, fontPath);
-
+await page.addScriptTag({ url: 'https://twemoji.maxcdn.com/v/latest/twemoji.min.js' });
+await page.evaluate(() => {
+  twemoji.parse(document.body);
+});
   // Set HTML content with text and emojis
   await page.setContent(`
-    <html lang="en">
-      <head>
-        <meta charset="UTF-8" />
+  <html lang="en">
+    <head>
+      <meta charset="UTF-8" />
+      <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/emoji-datasource@15.0.1/+esm">
         <style>
           body {
             background: ${randomGradient};
@@ -54,12 +42,12 @@ async function SendMessage(id, text) {
             align-items: center;
             justify-content: center;
             margin: 0;
-            padding: 0;
+            padding:0;
             padding: 1.7rem;
           }
           div {
             font-size: 7vw;
-            font-family: 'Noto Color Emoji', 'Segoe UI Emoji', 'Twemoji', 'Apple Color Emoji', 'Poppins', sans-serif;
+            font-family: 'Noto Color Emoji', sans-serif;
             font-weight: 600;
             text-align: center;
             word-wrap: break-word;
@@ -75,9 +63,8 @@ async function SendMessage(id, text) {
   `);
 
   // Capture a screenshot
-  const Image = await page.screenshot({ fullPage: true });
+  const Image = await page.screenshot( {fullPage: true });
   await browser.close();
-
   try {
     const temp = await fs.writeFile("temp.png", Image);
     await bot.api.sendPhoto(id, new InputFile("temp.png"), {
@@ -91,12 +78,11 @@ async function SendMessage(id, text) {
   }
 }
 
-bot.command("start", async (ctx) => {
+bot.command("start",async (ctx) => {
   await bot.api.setMyCommands([
     { command: "start", description: "Start bot " },
     { command: "help", description: "help" },
-  ]);
-
+  ])
   const id = ctx.chat.id;
   console.log(id);
   fetch().then((data) => {
@@ -118,14 +104,15 @@ bot.command("start", async (ctx) => {
   });
 });
 
-bot.command('help', async (ctx) => {
+bot.command('help',async (ctx)=>{
   await bot.api.sendMessage(
     ctx.chat.id,
     '<b>Contact</b> <i>@NGLCreateAccountbot</i> For help.',
     { parse_mode: "HTML" }
   );
-});
-
+  
+})
 bot.start();
+
 
 module.exports = SendMessage;
