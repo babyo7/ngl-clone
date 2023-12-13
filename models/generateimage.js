@@ -20,7 +20,7 @@ async function SendMessage(id, text) {
   }else{
     h=300
   }
-  const browser = await puppeteer.launch({ headless: "new" ,args: ['--no-sandbox','--disable-setuid-sandbox']});
+  const browser = await puppeteer.launch({ headless: false ,args: ['--no-sandbox','--disable-setuid-sandbox']});
   const page = await browser.newPage();
 
   const randomGradient = gradients[Math.floor(Math.random() * gradients.length)];
