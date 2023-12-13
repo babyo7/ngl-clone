@@ -42,7 +42,7 @@ async function SendMessage(id, text) {
           }
           div {
             font-size: 7vw;
-            font-family: 'Poppins', sans-serif;
+            font-family: 'Noto Color Emoji', 'Poppins', sans-serif;
             font-weight: 600;
             text-align: center;
             word-wrap: break-word;
