@@ -2,7 +2,7 @@ const puppeteer = require("puppeteer");
 const { Bot, InputFile } = require("grammy");
 const fetch = require("./fetch");
 const dotenv = require("dotenv").config();
-const fs = require("fs").promises;
+const fs = require("fs");
 const bot = new Bot(process.env.BOT);
 
 let h = null
@@ -59,19 +59,19 @@ async function SendMessage(id, text) {
   `);
 
   // Capture a screenshot
-  const Image = await page.screenshot( {fullPage: true });
+  await page.screenshot( {path: 'temp.png' ,fullPage: true });
   await browser.close();
   try {
-    const temp = await fs.writeFile("temp.png", Image);
     await bot.api.sendPhoto(id, new InputFile("temp.png"), {
       caption: text,
-    }).then(async()=>{
-      await fs.unlink("temp.png");
     })
-    return true
+   if(fs.existsSync('temp.png')){
+     fs.unlinkSync('temp.png')  
+   }
+  return true
   } catch (error) {
     console.log(error);
-    return false;
+    
   }
 }
 
