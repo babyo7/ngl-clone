@@ -82,12 +82,11 @@ bot.command("start",async (ctx) => {
   fetch().then((data) => {
     let userMap = new Map(data.map((items) => [items.id, items.username]));
     if (userMap.has(id.toString())) {
-
       ctx.reply(
         `<b><i>Hi!</i> <a href="https://ngl-clone-production.up.railway.app/${
-          userMap.get(id.toString()).username
+          userMap.get(id.toString())
         }">${
-          userMap.get(id.toString()).username
+          userMap.get(id.toString())
         }</a> <i>how you doing!</i></b> .`,
         { parse_mode: "HTML", disable_web_page_preview: true }
       );
