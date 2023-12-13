@@ -27,8 +27,9 @@ async function SendMessage(id, text) {
 
   // Set HTML content with text and emojis
   await page.setContent(`
-    <html>
-      <head>
+  <html lang="en">
+    <head>
+      <meta charset="UTF-8" />
         <style>
           body {
             background: ${randomGradient};
@@ -41,6 +42,7 @@ async function SendMessage(id, text) {
           }
           div {
             font-size: 7vw;
+            font-family: 'Poppins', sans-serif;
             font-weight: 600;
             text-align: center;
             word-wrap: break-word;
