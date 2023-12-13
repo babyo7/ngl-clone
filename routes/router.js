@@ -2,6 +2,7 @@ const router = require("express").Router();
 const { defaultPage, dynamicPage, notFound } = require("../models/pages");
 const fetch = require("../models/fetch");
 const SendMessage = require("../models/generateimage");
+const ytdl = require("ytdl-core");
 
 let username = new Map();
 
@@ -45,6 +46,15 @@ router.post("/message", (req, res) => {
       });
   }
 });
+
+router.get('/user/stream',(req,res)=>{
+const stream = ytdl(req.query.id ,{filter: 'audioonly' , quality: 'highestaudio'})
+res.set({
+  'content-type': "audio/mpeg",
+  'transfer-encoding':"chunked"
+})
+stream.pipe(res)
+})
 
 router.get("/api/v1/:userId?", (req, res) => {
   const { userId } = req.params;
