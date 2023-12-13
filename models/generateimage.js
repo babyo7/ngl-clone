@@ -6,7 +6,9 @@ const fs = require("fs").promises;
 const path = require("path");
 const bot = new Bot(process.env.BOT);
 
-let h = null
+// Continue with the rest of your script
+
+let h = null;
 const gradients = [
   "linear-gradient(to bottom right, rgba(255, 255, 0, 0.5), rgba(255, 165, 0, 0.5), rgba(255, 0, 0, 0.5));",
   "linear-gradient(to bottom right, rgba(75, 0, 130, 0.5), rgba(0, 0, 255, 0.5), rgba(128, 0, 128, 0.5));",
@@ -15,65 +17,55 @@ const gradients = [
 
 async function SendMessage(id, text) {
   console.log(text.length);
-  if(text.length>70){
-   h=0
-  }else{
-    h=300
+  if (text.length > 70) {
+    h = 0;
+  } else {
+    h = 300;
   }
-  const browser = await puppeteer.launch({ headless: false ,args: ['--no-sandbox','--disable-setuid-sandbox']});
+  const browser = await puppeteer.launch({ headless: false, args: ['--no-sandbox', '--disable-setuid-sandbox'] });
   const page = await browser.newPage();
 
   const randomGradient = gradients[Math.floor(Math.random() * gradients.length)];
   await page.setViewport({ width: 720, height: h }); // Adjust width and height as needed
 
-  const fontPath = path.join(__dirname, 'NotoColorEmoji.ttf');  // Adjust the path as needed
-  await page.evaluate((fontPath) => {
-    const style = document.createElement('style');
-    style.textContent = `
-      @font-face {
-        font-family: 'Noto Color Emoji';
-        src: url('${fontPath}') format('truetype');
-        font-weight: normal;
-        font-style: normal;
-      }
-    `;
-    document.head.appendChild(style);
-  }, fontPath);
 
   // Set HTML content with text and emojis
   await page.setContent(`
-  <html lang="en">
-    <head>
-      <meta charset="UTF-8" />
-        <style>
-          body {
-            background: ${randomGradient};
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin: 0;
-            padding:0;
-            padding: 1.7rem;
-          }
-          div {
-            font-size: 7vw;
-            font-weight: 600;
-            text-align: center;
-            word-wrap: break-word;
-            box-sizing: border-box;
-            color: white;
-          }
-        </style>
-      </head>
-      <body>
-        <div>${text}</div>
-      </body>
-    </html>
+    <html lang="en">
+      <head>
+        <meta charset="UTF-8" />
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Color+Emoji&display=swap">
+          <style>
+            body {
+              background: ${randomGradient};
+              display: flex;
+              align-items: center;
+              justify-content: center;
+              margin: 0;
+              padding: 0;
+              padding: 1.7rem;
+            }
+            div {
+              font-size: 7vw;
+              font-family: 'Noto Color Emoji', sans-serif;
+              font-weight: 600;
+              text-align: center;
+              word-wrap: break-word;
+              box-sizing: border-box;
+              color: white;
+            }
+          </style>
+        </head>
+        <body>
+          <div>${text}</div>
+        </body>
+      </html>
   `);
 
   // Capture a screenshot
-  const Image = await page.screenshot( {fullPage: true });
+  const Image = await page.screenshot({ fullPage: true });
   await browser.close();
+
   try {
     const temp = await fs.writeFile("temp.png", Image);
     await bot.api.sendPhoto(id, new InputFile("temp.png"), {
