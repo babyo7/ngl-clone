@@ -1,6 +1,6 @@
 "use strict";
 
-let message = document.querySelector("#message");
+let message = document.querySelector(".message");
 let form = document.querySelector("#form");
 let dice = document.querySelector(".dice");
 let loader = document.querySelector("#loader");
@@ -10,19 +10,15 @@ let id = document.querySelector("#id");
 let suggestion = 0;
 let diceContent = null;
 
-dice.addEventListener("click", () => {
-  if (suggestion < diceContent.length) {
-    message.textContent = diceContent[suggestion].text;
-    suggestion++;
-  } else {
-    suggestion = 0;
-  }
-});
-
 fetch("../data/dice.json")
   .then((response) => response.json())
   .then((data) => {
     diceContent = data;
+    dice.addEventListener("click", (e) => {
+      message.value = diceContent[suggestion].text;
+      suggestion++;
+      console.log(suggestion, message.value);
+    });
   })
   .catch((error) => {
     console.error(error);

@@ -9,10 +9,7 @@ let h = null
 const gradients = [
   "linear-gradient(to bottom right, rgba(255, 255, 0, 0.5), rgba(255, 165, 0, 0.5), rgba(255, 0, 0, 0.5));",
   "linear-gradient(to bottom right, rgba(75, 0, 130, 0.5), rgba(0, 0, 255, 0.5), rgba(128, 0, 128, 0.5));",
-  "linear-gradient(to bottom right, rgba(255, 0, 0, 0.5), rgba(255, 182, 193, 0.5), rgba(255, 0, 0, 0.5));",
-  "linear-gradient(to bottom right, rgba(255, 191, 0, 0.5), rgba(255, 255, 0, 0.5), rgba(255, 69, 0, 0.5));",
-  "linear-gradient(to bottom right, rgba(0, 0, 255, 0.5), rgba(173, 216, 230, 0.5), rgba(0, 255, 255, 0.5));",
-  "linear-gradient(to bottom right, rgba(0, 255, 0, 0.5), rgba(0, 128, 0, 0.5), rgba(0, 128, 128, 0.5));",
+  "linear-gradient(312deg, rgba(166,38,168,1) 0%, rgba(208,95,17,0.9820260868019083) 99%, rgba(255,0,0,1) 100%);",
 ];
 
 async function SendMessage(id, text) {
@@ -32,7 +29,6 @@ async function SendMessage(id, text) {
   await page.setContent(`
     <html>
       <head>
-        <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@600&display=swap">
         <style>
           body {
             background: ${randomGradient};
@@ -86,7 +82,15 @@ bot.command("start",async (ctx) => {
   fetch().then((data) => {
     let userMap = new Map(data.map((items) => [items.id, items.username]));
     if (userMap.has(id.toString())) {
-      ctx.reply(`Welcome ${userMap.get(id.toString())}`);
+
+      ctx.reply(
+        `<b><i>Hi!</i> <a href="https://ngl-clone-production.up.railway.app/${
+          userMap.get(id.toString()).username
+        }">${
+          userMap.get(id.toString()).username
+        }</a> <i>how you doing!</i></b> .`,
+        { parse_mode: "HTML", disable_web_page_preview: true }
+      );
     } else {
       ctx.reply(
         `You don't have an active account contact @NGLCreateAccountbot`

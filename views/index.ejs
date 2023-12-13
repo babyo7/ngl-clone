@@ -48,10 +48,10 @@
     <main class="justify-center h-screen flex items-center">
       <form id="form" class="relative grid gap-3 justify-center items-center">
         <div
-          class="rounded-3xl flex justify-start px-7 gap-2 items-center bg-white/90 -mb-3 py-3.5 rounded-br-none rounded-bl-none"
+          class="rounded-3xl flex justify-start px-7 gap-3 items-center bg-white/90 -mb-3 py-3.5 rounded-br-none rounded-bl-none"
         >
           <a
-            class="flex justify-center items-center gap-1"
+            class="flex justify-center items-center gap-2"
             href="<%= socialLink ? socialLink : 'https://www.instagram.com/babyo7_/' %>"
           >
             <div
@@ -67,12 +67,12 @@
               <h1
                 class="max-md:font-extrabold font-bold max-md:text-xl text-2xl text-black"
               >
-                <%= name ? name : 'Tanmay Singh' %>
+              <%= name ? name : 'Tanmay Singh' %>
               </h1>
               <p
-                class="max-md:font-bold max-md:text-sms text-xs font-bold text-black pl-1 mb-0.5"
+                class="max-md:font-bold max-md:text-sms text-xs font-bold -ml-0.5 text-black pl-1 mb-0.5"
               >
-                @<%= username ? username : 'babyo7_' %>
+              @<%= username ? username : 'babyo7_' %>
               </p>
             </div>
           </a>
@@ -83,10 +83,8 @@
           <img class="h-8 w-8" src="/assets/role-playing.png" alt="" />
         </div>
         <textarea
-          id="message"
-          maxlength="120"
           name="message"
-          class="rounded-tr-none rounded-tl-none resize-none relative w-[70vh] h-[23vh] max-md:w-[87vw] max-md:h-[40vw] max-md:placeholder:text-lg shadow-lg max-w-xl bg-white/40 placeholder:text-white/50 py-5 px-4 font-bold placeholder:font-semibold outline-none rounded-3xl placeholder:text-xl text-xl"
+          class="message rounded-tr-none rounded-tl-none resize-none relative w-[70vh] h-[23vh] max-md:w-[87vw] max-md:h-[40vw] max-md:placeholder:text-lg shadow-lg max-w-xl bg-white/40 placeholder:text-white/50 py-5 px-4 font-bold placeholder:font-semibold outline-none rounded-3xl placeholder:text-xl text-xl"
           required
           placeholder="Send me anonymous messages..."
         ></textarea>
