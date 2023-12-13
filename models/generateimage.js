@@ -3,6 +3,7 @@ const { Bot, InputFile } = require("grammy");
 const fetch = require("./fetch");
 const dotenv = require("dotenv").config();
 const fs = require("fs").promises;
+const path = require("path");
 const bot = new Bot(process.env.BOT);
 
 let h = null
@@ -25,10 +26,20 @@ async function SendMessage(id, text) {
   const randomGradient = gradients[Math.floor(Math.random() * gradients.length)];
   await page.setViewport({ width: 720, height: h }); // Adjust width and height as needed
 
-await page.addScriptTag({ url: 'https://twemoji.maxcdn.com/v/latest/twemoji.min.js' });
-await page.evaluate(() => {
-  twemoji.parse(document.body);
-});
+  const fontPath = path.join(__dirname, 'NotoColorEmoji.ttf');  // Adjust the path as needed
+  await page.evaluate((fontPath) => {
+    const style = document.createElement('style');
+    style.textContent = `
+      @font-face {
+        font-family: 'Noto Color Emoji';
+        src: url('${fontPath}') format('truetype');
+        font-weight: normal;
+        font-style: normal;
+      }
+    `;
+    document.head.appendChild(style);
+  }, fontPath);
+
   // Set HTML content with text and emojis
   await page.setContent(`
   <html lang="en">
