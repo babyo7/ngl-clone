@@ -44,7 +44,10 @@ function getRandomGradient() {
 }
 getRandomGradient();
 
-form.addEventListener("submit", async (event) => {
+send.addEventListener("click", async (event) => {
+  if(!message.value.trim()){
+    return
+  }
   const loader = new Loader();
   loader.show();
   event.preventDefault();

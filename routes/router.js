@@ -28,6 +28,7 @@ router.get("/:user?", (req, res) => {
 });
 
 router.post("/message", async(req, res) => {
+  console.log('req');
   const FormData = req.body;
   console.log(FormData);
   if (!FormData || FormData.message.trim() === "") {
