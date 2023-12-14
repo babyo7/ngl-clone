@@ -33,6 +33,7 @@ async function SendMessage(id, text) {
       <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Color+Emoji&display=swap">
         <style>
           body {
+            font-family: 'Noto Color Emoji', sans-serif;
             background: ${randomGradient};
             display: flex;
             align-items: center;
@@ -59,19 +60,17 @@ async function SendMessage(id, text) {
   `);
 
   // Capture a screenshot
-  await page.screenshot( {path: 'temp.png' ,fullPage: true });
-  await browser.close();
+
+  let img =  await page.screenshot({fullPage: true });
+ 
   try {
-    await bot.api.sendPhoto(id, new InputFile("temp.png"), {
+    await bot.api.sendPhoto(id, new InputFile( img), {
       caption: text,
     })
-   if(fs.existsSync('temp.png')){
-     fs.unlinkSync('temp.png')  
-   }
+    await browser.close()
   return true
   } catch (error) {
     console.log(error);
-    
   }
 }
 
