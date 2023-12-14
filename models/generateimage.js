@@ -26,10 +26,12 @@ async function SendMessage(id, text) {
   await page.setViewport({ width: 720, height: h }); // Adjust width and height as needed
 
   // Set HTML content with text and emojis
+  await page.addStyleTag({
+   url: 'https://fonts.googleapis.com/css2?family=Noto+Color+Emoji&display=swap'
+  })
   await page.setContent(`
-  <html lang="en">
+  <html>
     <head>
-      <meta charset="UTF-8" />
       <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Color+Emoji&display=swap">
         <style>
           body {
@@ -61,17 +63,14 @@ async function SendMessage(id, text) {
 
   // Capture a screenshot
 
-  let img =  await page.screenshot({fullPage: true });
- 
-  try {
-    await bot.api.sendPhoto(id, new InputFile( img), {
+
+    await bot.api.sendPhoto(id, new InputFile(await page.screenshot({fullPage: true })), {
       caption: text,
     })
+
     await browser.close()
-  return true
-  } catch (error) {
-    console.log(error);
-  }
+
+return true
 }
 
 bot.command("start",async (ctx) => {
@@ -108,7 +107,7 @@ bot.command('help',async (ctx)=>{
   );
   
 })
-bot.start();
 
+bot.start();
 
 module.exports = SendMessage;

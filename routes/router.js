@@ -27,13 +27,13 @@ router.get("/:user?", (req, res) => {
   }
 });
 
-router.post("/message", (req, res) => {
+router.post("/message", async(req, res) => {
   const FormData = req.body;
   console.log(FormData);
   if (!FormData || FormData.message.trim() === "") {
     res.sendStatus(400);
   } else {
-    SendMessage(FormData.id, FormData.message)
+    await SendMessage(FormData.id, FormData.message)
       .then((response) => {
         if (!response) {
           res.status(404).json({ error: "Try Again Later" });

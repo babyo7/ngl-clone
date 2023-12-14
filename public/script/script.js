@@ -89,8 +89,8 @@ function Loader() {
     senLabel.textContent = "Message Sent!";
     setTimeout(() => {
       send.disabled = false;
-      message.textContent = "";
+      message.value = '';
       senLabel.textContent = "Send another message";
-    }, 100);
+    }, 1700);
   };
 }
