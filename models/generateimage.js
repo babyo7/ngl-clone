@@ -27,8 +27,10 @@ async function SendMessage(id, text) {
 
   // Set HTML content with text and emojis
   await page.addStyleTag({
-   url: 'https://fonts.googleapis.com/css2?family=Noto+Color+Emoji&display=swap'
-  })
+    content: `
+      @import url('https://fonts.googleapis.com/css2?family=Noto+Color+Emoji&display=swap');
+    `,
+  });
   await page.setContent(`
   <html>
     <head>
@@ -62,7 +64,6 @@ async function SendMessage(id, text) {
   `);
 
   // Capture a screenshot
-
 
     await bot.api.sendPhoto(id, new InputFile(await page.screenshot({fullPage: true })), {
       caption: text,
