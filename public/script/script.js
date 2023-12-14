@@ -91,6 +91,6 @@ function Loader() {
       send.disabled = false;
       message.textContent = "";
       senLabel.textContent = "Send another message";
-    }, 1700);
+    }, 100);
   };
 }
