@@ -34,8 +34,8 @@ router.post("/message", async(req, res) => {
   if (!FormData || FormData.message.trim() === "") {
       res.sendStatus(400);
   } else {
-    if(FormData.message.length>157){
-      res.status(404).json({ error: "Word limit is 157" });
+    if(FormData.message.length>80){
+      res.status(404).json({ error: "Reached Word Limit" });
     }else{
     await SendMessage(FormData.id, FormData.message)
       .then((response) => {

@@ -52,7 +52,7 @@ async function SendMessage(id, text) {
       header {
         background: ${randomGradient};
         background-color: white;
-        height: 23vw;
+        height: 30vw;
         color: white;
         width: 100%;
         text-align:center;
@@ -66,7 +66,7 @@ async function SendMessage(id, text) {
         display: flex;
         align-items: center;
         justify-content: center;
-        font-size: 5vw;
+        font-size: 7vw;
         font-family: 'Noto Color Emoji', sans-serif;
         font-weight: 600;
         text-align: center;
@@ -77,7 +77,7 @@ async function SendMessage(id, text) {
   </head>
   <body>
     <header>
-      <span style="font-size: 5vw;">Send me anonymous <br> message!</span>
+      <span style="font-size: 7vw;">Send me anonymous <br> message!</span>
     </header>
     <div>${text}</div>
   </body>
