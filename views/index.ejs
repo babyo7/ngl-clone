@@ -71,7 +71,7 @@
               <%= name ? name : 'Tanmay Singh' %>
               </h1>
               <p
-              class="max-md:font-bold max-md:text-xs text-xs font-bold  text-black  mb-0.5"
+              class="max-md:font-bold max-md:text-xs text-xs font-semibold text-black  mb-0.5"
               >
               @<%= username ? username : 'babyo7_' %>
             </p>
@@ -91,6 +91,7 @@
         </div>
         <textarea
           name="message"
+          maxlength="157"
           class="message rounded-tr-none rounded-tl-none resize-none relative w-[70vh] h-[23vh] max-md:w-[87vw] max-md:h-[40vw] max-md:placeholder:text-lg shadow-lg max-w-xl bg-white/40 placeholder:text-white/50 py-5 px-4 font-bold placeholder:font-semibold outline-none rounded-3xl placeholder:text-xl text-xl"
           required
           placeholder="Send me anonymous messages..."

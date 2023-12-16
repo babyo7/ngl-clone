@@ -5,7 +5,7 @@ const dotenv = require("dotenv").config();
 const fs = require("fs");
 const bot = new Bot(process.env.BOT);
 
-let h = null
+let h = null;
 const gradients = [
   "linear-gradient(to bottom right, rgba(255, 255, 0, 0.5), rgba(255, 165, 0, 0.5), rgba(255, 0, 0, 0.5));",
   "linear-gradient(to bottom right, rgba(75, 0, 130, 0.5), rgba(0, 0, 255, 0.5), rgba(128, 0, 128, 0.5));",
@@ -14,15 +14,19 @@ const gradients = [
 
 async function SendMessage(id, text) {
   console.log(text.length);
-  if(text.length>70){
-   h=0
-  }else{
-    h=300
+  if (text.length > 70) {
+    h = 350;
+  } else {
+    h = 333;
   }
-  const browser = await puppeteer.launch({ headless: "new" ,args: ['--no-sandbox','--disable-setuid-sandbox']});
+  const browser = await puppeteer.launch({
+    headless: "new",
+    args: ["--no-sandbox", "--disable-setuid-sandbox"],
+  });
   const page = await browser.newPage();
 
-  const randomGradient = gradients[Math.floor(Math.random() * gradients.length)];
+  const randomGradient =
+    gradients[Math.floor(Math.random() * gradients.length)];
   await page.setViewport({ width: 720, height: h }); // Adjust width and height as needed
 
   // Set HTML content with text and emojis
@@ -32,64 +36,83 @@ async function SendMessage(id, text) {
     `,
   });
   await page.setContent(`
-  <html>
-    <head>
-      <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Color+Emoji&display=swap">
-        <style>
-          body {
-            font-family: 'Noto Color Emoji', sans-serif;
-            background: ${randomGradient};
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin: 0;
-            padding:0;
-            padding: 1.7rem;
-          }
-          div {
-            font-size: 7vw;
-            font-family: 'Noto Color Emoji', sans-serif;
-            font-weight: 600;
-            text-align: center;
-            word-wrap: break-word;
-            box-sizing: border-box;
-            color: white;
-          }
-        </style>
-      </head>
-      <body>
-        <div>${text}</div>
-      </body>
-    </html>
+  <html lang="en">
+  <head>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Color+Emoji&display=swap">
+    <style>
+      body {
+        font-family: 'Noto Color Emoji', sans-serif;
+        display: flex;
+        flex-direction: column; 
+        align-items: center;
+        justify-content: center;
+        margin: 0;
+        padding: 0;
+      }
+      header {
+        background: ${randomGradient};
+        background-color: white;
+        height: 23vw;
+        color: white;
+        width: 100%;
+        text-align:center;
+        display: flex;
+        font-weight: 600;
+        align-items: center;
+        justify-content: center;
+      }
+      div {
+        padding: 3rem;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 5vw;
+        font-family: 'Noto Color Emoji', sans-serif;
+        font-weight: 600;
+        text-align: center;
+        word-wrap: break-word;
+        height: 50vh; /* 100% of the viewport height */
+      }
+    </style>
+  </head>
+  <body>
+    <header>
+      <span style="font-size: 5vw;">Send me anonymous <br> message!</span>
+    </header>
+    <div>${text}</div>
+  </body>
+  </html>  
   `);
 
   // Capture a screenshot
 
-    await bot.api.sendPhoto(id, new InputFile(await page.screenshot({fullPage: true })), {
+  await bot.api.sendPhoto(
+    id,
+    new InputFile(await page.screenshot({ fullPage: true })),
+    {
       caption: text,
-    })
+    }
+  );
 
-    await browser.close()
+  await browser.close();
 
-return true
+  return true;
 }
 
-bot.command("start",async (ctx) => {
+bot.command("start", async (ctx) => {
   await bot.api.setMyCommands([
     { command: "start", description: "Start bot " },
     { command: "help", description: "help" },
-  ])
+  ]);
   const id = ctx.chat.id;
   console.log(id);
   fetch().then((data) => {
     let userMap = new Map(data.map((items) => [items.id, items.username]));
     if (userMap.has(id.toString())) {
       ctx.reply(
-        `<b><i>Hi!</i> <a href="https://ngl-clone-production.up.railway.app/${
-          userMap.get(id.toString())
-        }">${
-          userMap.get(id.toString())
-        }</a> <i>how you doing!</i></b> .`,
+        `<b><i>Hi!</i> <a href="https://ngl-clone-production.up.railway.app/${userMap.get(
+          id.toString()
+        )}">${userMap.get(id.toString())}</a> <i>how you doing!</i></b> .`,
         { parse_mode: "HTML", disable_web_page_preview: true }
       );
     } else {
@@ -100,14 +123,13 @@ bot.command("start",async (ctx) => {
   });
 });
 
-bot.command('help',async (ctx)=>{
+bot.command("help", async (ctx) => {
   await bot.api.sendMessage(
     ctx.chat.id,
-    '<b>Contact</b> <i>@NGLCreateAccountbot</i> For help.',
+    "<b>Contact</b> <i>@NGLCreateAccountbot</i> For help.",
     { parse_mode: "HTML" }
   );
-  
-})
+});
 
 bot.start();
 

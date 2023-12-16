@@ -32,12 +32,15 @@ router.post("/message", async(req, res) => {
   const FormData = req.body;
   console.log(FormData);
   if (!FormData || FormData.message.trim() === "") {
-    res.sendStatus(400);
+      res.sendStatus(400);
   } else {
+    if(FormData.message.length>157){
+      res.status(404).json({ error: "Word limit is 157" });
+    }else{
     await SendMessage(FormData.id, FormData.message)
       .then((response) => {
         if (!response) {
-          res.status(404).json({ error: "Try Again Later" });
+          res.status(404).json({ error: response.error });
         } else {
           res.status(200).json({ message: "success" });
         }
@@ -46,6 +49,7 @@ router.post("/message", async(req, res) => {
         res.status(500).json({ error: err.message });
       });
   }
+}
 });
 
 
