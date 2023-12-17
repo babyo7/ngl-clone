@@ -106,20 +106,21 @@ bot.command("start", async (ctx) => {
   ]);
   const id = ctx.chat.id;
   console.log(id);
-  fetch().then((data) => {
+  fetch().then(async(data) => {
     let userMap = new Map(data.map((items) => [items.id, items.username]));
     if (userMap.has(id.toString())) {
+     await bot.api.setMyCommands([
+        { command: "start", description: "Start bot " },
+        { command: "manage", description: "Manage account" },
+        { command: "help", description: "help" },
+      ]);
       ctx.reply(
         `<b><i>Hi!</i> <a href="https://ngl-clone-production.up.railway.app/${userMap.get(
           id.toString()
         )}">${userMap.get(id.toString())}</a> <i>how you doing!</i></b> .`,
         { parse_mode: "HTML", disable_web_page_preview: true }
       );
-       bot.api.setMyCommands([
-        { command: "start", description: "Start bot " },
-        { command: "manage", description: "Manage account" },
-        { command: "help", description: "help" },
-      ]);
+      
     } else {
       ctx.reply(
         `You don't have an active account contact @NGLCreateAccountbot`
@@ -139,7 +140,7 @@ bot.command("manage", async (ctx) => {
 bot.command("help", async (ctx) => {
   await bot.api.sendMessage(
     ctx.chat.id,
-    "<b>Contact</b><i>@NGLCreateAccountbot</i> For Help.",
+    "<b>Contact</b><i> @NGLCreateAccountbot</i> For Help.",
     { parse_mode: "HTML" }
   );
 });
