@@ -115,6 +115,11 @@ bot.command("start", async (ctx) => {
         )}">${userMap.get(id.toString())}</a> <i>how you doing!</i></b> .`,
         { parse_mode: "HTML", disable_web_page_preview: true }
       );
+       bot.api.setMyCommands([
+        { command: "start", description: "Start bot " },
+        { command: "manage", description: "Manage account" },
+        { command: "help", description: "help" },
+      ]);
     } else {
       ctx.reply(
         `You don't have an active account contact @NGLCreateAccountbot`
@@ -123,10 +128,18 @@ bot.command("start", async (ctx) => {
   });
 });
 
+bot.command("manage", async (ctx) => {
+  await bot.api.sendMessage(
+    ctx.chat.id,
+    "<i>@NGLCreateAccountbot</i> To Mange Account.",
+    { parse_mode: "HTML" }
+  );
+});
+
 bot.command("help", async (ctx) => {
   await bot.api.sendMessage(
     ctx.chat.id,
-    "<b>Contact</b> <i>@NGLCreateAccountbot</i> For help.",
+    "<b>Contact</b><i>@NGLCreateAccountbot</i> For Help.",
     { parse_mode: "HTML" }
   );
 });
