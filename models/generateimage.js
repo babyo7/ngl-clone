@@ -115,7 +115,7 @@ bot.command("start", async (ctx) => {
         { command: "help", description: "help" },
       ]);
       ctx.reply(
-        `<b><i>Hi!</i> <a href="https://ngl-clone-production.up.railway.app/${userMap.get(
+        `<b><i>Hi!</i> <a href="https://ngl.up.railway.app/${userMap.get(
           id.toString()
         )}">${userMap.get(id.toString())}</a> <i>how you doing!</i></b> .`,
         { parse_mode: "HTML", disable_web_page_preview: true }
