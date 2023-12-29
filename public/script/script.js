@@ -24,9 +24,20 @@ fetch("../data/dice.json")
     console.error(error);
   });
 
+function getRandomColor() {
+  const letters = '0123456789ABCDEF';
+  let color = '#';
+  for (let i = 0; i < 6; i++) {
+    color += letters[Math.floor(Math.random() * 16)];
+  }
+  return color;
+}
+
 function animateGradient() {
   const body = document.body;
-  body.style.background = "linear-gradient(-45deg, #ee7752, #e73c7e, #23a6d5, #23d5ab)";
+  const randomColors = Array.from({ length: 4 }, getRandomColor);
+
+  body.style.background = `linear-gradient(-45deg, ${randomColors.join(', ')})`;
   body.style.backgroundSize = "400% 400%";
 
   const keyframes = [
