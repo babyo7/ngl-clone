@@ -24,25 +24,27 @@ fetch("../data/dice.json")
     console.error(error);
   });
 
-function getRandomGradient() {
-  const gradients = [
-    "from-pink-500 via-red-500 to-yellow-500",
-    "from-green-500 via-teal-500 to-blue-500",
-    "from-purple-500 via-pink-500 to-red-500",
-    "from-cyan-500 via-light-blue-500 to-blue-500",
-    "from-yellow-500 via-orange-500 to-red-500",
-    "from-indigo-500 via-blue-500 to-purple-500",
-    "from-rose-500 via-pink-500 to-red-500",
-    "from-amber-500 via-yellow-500 to-orange-500",
-    "from-blue-500 via-light-blue-500 to-cyan-500",
-    "from-emerald-500 via-green-500 to-teal-500",
-  ];
-  const randomGradient =
-    gradients[Math.floor(Math.random() * gradients.length)];
+function animateGradient() {
+  const body = document.body;
+  body.style.background = "linear-gradient(-45deg, #ee7752, #e73c7e, #23a6d5, #23d5ab)";
+  body.style.backgroundSize = "400% 400%";
 
-  document.body.className = `bg-gradient-to-br ${randomGradient} bg-repeat`;
+  const keyframes = [
+    { backgroundPosition: "0% 50%" },
+    { backgroundPosition: "100% 50%" },
+    { backgroundPosition: "0% 50%" }
+  ];
+
+  const options = {
+    duration: 15000,
+    iterations: Infinity,
+    easing: "ease"
+  };
+
+  body.animate(keyframes, options);
 }
-getRandomGradient();
+
+animateGradient();
 
 send.addEventListener("click", async (event) => {
   if(!message.value.trim()){
