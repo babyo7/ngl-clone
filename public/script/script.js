@@ -24,38 +24,10 @@ fetch("../data/dice.json")
     console.error(error);
   });
 
-function getRandomColor() {
-  const letters = '0123456789ABCDEF';
-  let color = '#';
-  for (let i = 0; i < 6; i++) {
-    color += letters[Math.floor(Math.random() * 16)];
-  }
-  return color;
-}
-function setRandomGradientColor() {
-  // Get a random color pair from the predefined list
-  var colorPair = getRandomColorPair();
 
-  // Set gradient background
-  document.body.style.background = 'linear-gradient(to right, ' + colorPair[0] + ', ' + colorPair[1] + ')';
-}
 
-function getRandomColorPair() {
-  // Predefined list of color pairs (you can customize this list)
-  var colorPairs = [
-      ['#FFB6C1', '#FF69B4'], // LightPink to HotPink
-      ['#ADD8E6', '#87CEEB'], // LightBlue to SkyBlue
-      ['#98FB98', '#00FA9A'], // PaleGreen to MediumSpringGreen
-      // Add more color pairs as needed
-  ];
+document.body.style.background = '#EC1187 linear-gradient(to bottom right, #EC1187 0%, #FF8D10 100%)';
 
-  // Choose a random color pair from the list
-  var randomIndex = Math.floor(Math.random() * colorPairs.length);
-  return colorPairs[randomIndex];
-}
-
-// Call the function to set a random gradient color
-setRandomGradientColor();
 
 send.addEventListener("click", async (event) => {
   if(!message.value.trim()){
