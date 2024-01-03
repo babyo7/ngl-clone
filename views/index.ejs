@@ -47,24 +47,24 @@
       title="Sitemap"
       href="sitemap.xml"
     />
-    <link rel="stylesheet" href="/style/minify-style.css" />
+    <link rel="stylesheet" href="/style/output.css" />
     <link rel="shortcut icon" href="<%= dp ? dp : '/dp/me.gif' %>" type="image/x-icon">
   </head>
   <body class="font-sans">
-    <main class="justify-center h-screen flex items-center">
+    <main class="justify-center min-h-screen flex items-center">
       <form id="form" class="relative grid gap-3 justify-center items-center">
         <div
-          class="rounded-3xl flex justify-start px-7 gap-3 items-center bg-white/90 -mb-3 py-3.5 rounded-br-none rounded-bl-none"
+          class="rounded-3xl flex justify-start px-6 gap-3 shadow-black/5 shadow-sm  items-center bg-white/80 -mb-3 py-2.5 rounded-br-none rounded-bl-none"
         >
           <a
             class="flex justify-center items-center gap-2"
             href="<%= socialLink ? socialLink : 'https://www.instagram.com/babyo7_/' %>"
           >
             <div
-              class="bg-black h-14 w-14 -ml-2 rounded-full overflow-hidden border-none shadow-sm"
+              class="bg-black h-11 w-11 -ml-2 rounded-full overflow-hidden border-none "
             >
               <img
-                class="border-none shadow-lg object-cover object-center"
+                class="border-none  object-cover object-center"
                 src="<%= dp ? dp : '/dp/me.gif' %>"
                 alt="<%=username %>"
               />
@@ -73,14 +73,14 @@
               <div class="grid justify-start items-center">
 
                 <h1
-                class="max-md:font-extrabold font-bold max-md:text-xl text-2xl text-black"
+                class="max-md:font-extrabold font-bold max-md:text-lg text-lg  text-black"
                 >
               <%= name ? name : 'NGL' %>
               </h1>
               <p
-              class="max-md:font-bold max-md:text-xs text-xs font-semibold text-black  mb-0.5"
+              class="max-md:font-bold max-md:text-xs text-xs font-semibold text-black -mt-1.5 mb-0.5"
               >
-              @<%= username ? username : 'babyo7_' %>
+              @<%= username ? username : 'ngl' %>
             </p>
           </div>
             </div>
@@ -92,22 +92,22 @@
           </div>
         </div>
         <div
-          class="dice z-10 absolute bottom-[31%] bg-white/50 rounded-full right-[1%]   cursor-pointer text-white px-1.5 py-1"
+          class="dice z-10 absolute bottom-[37%] bg-white/50 rounded-full right-[3%]  max-md:right-[4%]  cursor-pointer text-white px-1.5 py-1"
         >
           <p class="max-md:text-lg">🎲</p>
         </div>
         <textarea
           name="message"
           maxlength="80"
-          class="message rounded-tr-none rounded-tl-none resize-none relative w-[70vh] h-[23vh] max-md:w-[87vw] max-md:h-[40vw] max-md:placeholder:text-lg shadow-lg max-w-xl bg-white/40 placeholder:text-white/50 py-5 px-4 font-bold placeholder:font-semibold outline-none rounded-3xl placeholder:text-xl text-xl"
+          class="message rounded-tr-none rounded-tl-none shadow-black/5 shadow-sm resize-none relative w-[70vh] h-[23vh] max-md:w-[93vw] max-md:h-[37vw] max-md:placeholder:text-lg  max-w-xl bg-white/20 placeholder:text-white/50 py-5 px-4 font-bold placeholder:font-semibold outline-none rounded-3xl placeholder:text-lg text-lg"
           required
           placeholder="Send me anonymous messages..."
         ></textarea>
 
-        <div class="flex justify-center items-center">
+        <div class="flex justify-center items-center mt-3">
           <button
             id="send"
-            class="flex justify-center items-center max-md:w-[86vw] w-[70vh] border-black border py-2.5 shadow-lg bg-black text-white font-bold text-lg rounded-full"
+            class="flex justify-center items-center max-md:w-[93vw] w-[70vh]  border-none py-[.77rem] shadow-lg  bg-black text-white font-bold text-lg rounded-full"
           >
             <img
               src="/assets/loading.svg"
@@ -120,10 +120,10 @@
           </button>
         </div>
         <p
-          class="text-center animate-pulse text-white cursor-pointer"
+          class="text-center text-sm  text-white cursor-pointer"
           onclick="window.open('https://t.me/NGLCreateAccountbot')"
         >
-          🔒 create anonymous q&a
+          🔒 anonymous q&a
         </p>
       </form>
     </main>
