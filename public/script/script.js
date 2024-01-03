@@ -27,35 +27,35 @@ fetch("../data/dice.json")
 function getRandomColor() {
   const letters = '0123456789ABCDEF';
   let color = '#';
-  for (let i = 0; i < 4; i++) {
+  for (let i = 0; i < 6; i++) {
     color += letters[Math.floor(Math.random() * 16)];
   }
   return color;
 }
+function setRandomGradientColor() {
+  // Get a random color pair from the predefined list
+  var colorPair = getRandomColorPair();
 
-function animateGradient() {
-  const body = document.body;
-  const randomColors = Array.from({ length: 4 }, getRandomColor);
-
-  body.style.background = `linear-gradient(-45deg, ${randomColors.join(', ')})`;
-  body.style.backgroundSize = "400% 400%";
-
-  const keyframes = [
-    { backgroundPosition: "0% 50%" },
-    { backgroundPosition: "100% 50%" },
-    { backgroundPosition: "0% 50%" }
-  ];
-
-  const options = {
-    duration: 15000,
-    iterations: Infinity,
-    easing: "ease"
-  };
-
-  body.animate(keyframes, options);
+  // Set gradient background
+  document.body.style.background = 'linear-gradient(to right, ' + colorPair[0] + ', ' + colorPair[1] + ')';
 }
 
-animateGradient();
+function getRandomColorPair() {
+  // Predefined list of color pairs (you can customize this list)
+  var colorPairs = [
+      ['#FFB6C1', '#FF69B4'], // LightPink to HotPink
+      ['#ADD8E6', '#87CEEB'], // LightBlue to SkyBlue
+      ['#98FB98', '#00FA9A'], // PaleGreen to MediumSpringGreen
+      // Add more color pairs as needed
+  ];
+
+  // Choose a random color pair from the list
+  var randomIndex = Math.floor(Math.random() * colorPairs.length);
+  return colorPairs[randomIndex];
+}
+
+// Call the function to set a random gradient color
+setRandomGradientColor();
 
 send.addEventListener("click", async (event) => {
   if(!message.value.trim()){

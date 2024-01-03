@@ -7,7 +7,6 @@ const bot = new Bot(process.env.BOT);
 
 let h = null;
 const gradients = [
-  "linear-gradient(to bottom right, rgba(255, 255, 0, 0.5), rgba(255, 165, 0, 0.5), rgba(255, 0, 0, 0.5));",
   "linear-gradient(to bottom right, rgba(75, 0, 130, 0.5), rgba(0, 0, 255, 0.5), rgba(128, 0, 128, 0.5));",
   "linear-gradient(312deg, rgba(166,38,168,1) 0%, rgba(208,95,17,0.9820260868019083) 99%, rgba(255,0,0,1) 100%);",
 ];
