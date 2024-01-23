@@ -20,6 +20,7 @@ async function fetchDataWithAuthentication() {
 
     return data;
   } catch (error) {
+    return error.message
     console.error("Error fetching data:", error.message);
   }
 }
