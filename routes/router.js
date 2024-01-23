@@ -65,6 +65,7 @@ router.get("/api/v1/:userId?", (req, res) => {
       }
     })
     .catch((err) => {
+      res.status(500).json(err.message);
       console.log(err);
     });
 });
