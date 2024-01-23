@@ -20,10 +20,10 @@ router.get("/:user?", (req, res) => {
       })
       .catch((err) => {
         console.log(err.message);
-        res.redirect("/babyo7");
+        res.render("index", defaultPage);
       });
   } else {
-    res.render("index", defaultPage);
+    res.redirect("/babyo7");
   }
 });
 
